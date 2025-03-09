@@ -3,6 +3,7 @@ import SignInPage from "../auth/sign-in";
 import App from "../App";
 import Home from "../features/Home";
 import Dashboard from "../features/dashboard/Dashboard";
+import EditResume from "@/features/dashboard/resume/[resumeId]/edit/EditResume";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "/dashboard/resume/:resumeId/edit",
+        element: <EditResume />,
       },
     ],
   },

@@ -14,4 +14,7 @@ const axiosClient = axios.create({
 const createResumeApi = (data) =>
   axiosClient.post(endpoints.createResume, data);
 
-export default { createResumeApi };
+const getUserResumeApi = (userEmail) =>
+  axiosClient.get("/user-resumes?filters[userEmail][$eq]=" + userEmail);
+
+export default { createResumeApi, getUserResumeApi };

@@ -13,15 +13,19 @@ import { v4 as uuidv4 } from "uuid";
 import globalApi from "../../../../services/api/globalApi";
 import { useUser } from "@clerk/clerk-react";
 import { Loader2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const DialogBox = ({ open, setOpenDialog }) => {
   const [resumeTitle, setResumeTitle] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const naviagte = useNavigate();
   const { user } = useUser();
 
+  // creating a resume on click create btn for new resume
   const handleCreateResume = async () => {
     setIsLoading(true);
     try {
+      //preparing a data 
       const data = {
         data: {
           title: resumeTitle,
@@ -31,9 +35,12 @@ const DialogBox = ({ open, setOpenDialog }) => {
         },
       };
 
-      const response = await globalApi.createResumeApi(data);
+      // making a post call to generate a data in the backend
+      const response = await globalApi?.createResumeApi(data);
       if (response) {
         setIsLoading(false);
+        // using doc id because strapi has doc id for each record
+        naviagte(`/dashboard/resume/${response?.data?.data?.documentId}/edit`);
       }
       console.log(response);
     } catch (err) {
